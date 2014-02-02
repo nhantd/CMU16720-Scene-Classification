@@ -1,0 +1,1 @@
+First assignment for CMU 16720-computer vision course. The task is to determine where the given image was taken. The whole recognition system is based on bags of visual words and then use spatial pyramid matching for classifying the scene categories. I also used the SUFR features instead of randomly choose pixels to improve the recognition accuracy.
