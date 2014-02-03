@@ -18,3 +18,5 @@ end
 
 fprintf('saving results\n');
 save('vision.mat', 'filterBank', 'dictionary', 'train_features', 'train_labels');
+
+toc

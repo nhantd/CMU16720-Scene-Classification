@@ -17,7 +17,7 @@ distances = distanceToSet(h, train_features);
 [~,nnI] = max(distances);
 load('../data/images/traintest.mat','mapping');
 guessedImage = mapping{train_labels(nnI)};
-%fprintf('[My Guess]:%s.\n',guessedImage);
+fprintf('[My Guess]:%s.\n',guessedImage);
 
 end
 
