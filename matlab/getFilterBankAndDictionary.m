@@ -17,35 +17,26 @@ alpha = 100;
 
 %create filter bank
 [filterBank] = createFilterBank();
-sample_img = zeros(length(image_names) * alpha, 1, 3);
+filterSize = length(filterBank)*3;
+sample_img = zeros(length(image_names)*alpha, filterSize);
 
 for i = 1:length(image_names)
     %read each image
     img = imread(image_names{i});
-    imgsize = size(img,1) * size(img,2);
+    
+    %get filter response
+    [filter_response] = extractFilterResponse(img, filterBank);
     
     %randomly choose alpha pixels
     N = numel(img(:,:,1));
-    index = randperm(N, alpha);
-   
-    Rvector = reshape(img(:,:,1), imgsize, 1);
-    Gvector = reshape(img(:,:,2), imgsize, 1);
-    Bvector = reshape(img(:,:,3), imgsize, 1);
+    index = randperm(N, alpha)';
     
-    %get RGB values
-    Rpixels = Rvector(index);
-    Gpixels = Gvector(index);
-    Bpixels = Bvector(index);
-    
-    sample_img(1+alpha*(i-1):i*alpha, 1) = Rpixels;
-    sample_img(1+alpha*(i-1):i*alpha, 2) = Gpixels;
-    sample_img(1+alpha*(i-1):i*alpha, 3)  = Bpixels;
+    sample_img(1+(i-1)*alpha: i*alpha,:) = filter_response(index,:);
     
 end
 
-%size(sample_img)
-[filter_response] = extractFilterResponse(sample_img, filterBank);
+
 %size(filter_response)
-[~, dictionary] = kmeans(filter_response, K, 'EmptyAction', 'drop');
+[~, dictionary] = kmeans(sample_img, K, 'EmptyAction', 'drop');
 
 end

@@ -55,6 +55,7 @@ for i = 1:L
             
             %calculate histogram
             current_size;
+            weight;
             h(1+current_size:dictionarySize+current_size) = (h(1+lup_index:lup_index+dictionarySize) + h(1+rup_index:rup_index+dictionarySize) + ...
             h(1+ldw_index:ldw_index+dictionarySize) + h(1+rdw_index:rdw_index+dictionarySize)) .* weight;
             current_size = current_size + dictionarySize;
